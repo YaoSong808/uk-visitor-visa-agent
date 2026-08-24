@@ -15,6 +15,20 @@ const STEPS = [
   ["审查结果", CheckCircle2],
 ] as const;
 const INPUT = "mt-2 w-full rounded-md border border-[#c9d0d6] bg-white px-3 py-2.5 text-[15px] text-[#18232c] outline-none transition focus:border-[#146c5a] focus:ring-2 focus:ring-[#146c5a]/15";
+const DEMO_RESULT: AgentResult = {
+  summary: "申请人的旅行目的和行程基本清晰，但资助金额、资助人收入证明和返程约束材料仍需补充。建议在提交前对照申请表再做一次数字与日期核对。",
+  readinessScore: 72,
+  missingInformation: ["资助人近期收入和银行流水", "申请人返回后的学业或工作安排证明", "拟住宿酒店名称或所在区域"],
+  contradictions: [{ severity: "medium", field: "旅行费用", issue: "预计总费用与资助声明中的金额尚未完全对应。", action: "统一申请表、资助信和解释信中的金额与币种。" }],
+  checklist: [
+    { category: "身份", document: "有效护照", status: "ready", reason: "请提供资料页及相关出入境记录。" },
+    { category: "资金", document: "申请人银行流水", status: "review", reason: "需要说明家庭每月转账的性质与用途。" },
+    { category: "资助", document: "资助信与关系证明", status: "missing", reason: "说明资助范围、支付方式及双方关系。" },
+  ],
+  coverLetter: "Dear Entry Clearance Officer,\n\nI am applying for a Standard Visitor visa for a short tourism trip to the United Kingdom. The purpose of my visit is sightseeing and visiting museums and historic landmarks.\n\nThe estimated cost of my trip is [TO CONFIRM: amount]. My father will provide financial support for [TO CONFIRM: flights/accommodation/daily expenses], while I will also use my personal savings. Supporting bank statements and evidence of our relationship are included.\n\nI will return after the visit because [TO CONFIRM: study, employment or other evidenced commitment].\n\nYours faithfully,\n[Applicant name]",
+  nextSteps: ["补充资助人流水、收入证明及身份证明", "统一所有文件中的旅行日期、总费用和资助金额", "补全非英文材料的可独立验证英文翻译", "亲自核对申请表后再前往 GOV.UK 提交"],
+  disclaimer: "此结果仅用于材料准备，不是法律意见或获签预测。",
+};
 
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return <label className="block text-sm font-semibold text-[#293740]">{label}{children}{hint && <span className="mt-1.5 block text-xs font-normal text-[#66747d]">{hint}</span>}</label>;
@@ -88,6 +102,7 @@ export default function Home() {
             <Field label="API Key"><input className={INPUT} type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-..." autoComplete="off" /></Field>
             <div className="mt-5 rounded-md bg-[#f1f6f4] px-4 py-3 text-sm leading-6 text-[#43544e]"><strong>数据原则：</strong>默认不保存申请内容。材料仅在开始审查后发送给 OpenAI API，分析结束后不在本项目服务器留存。</div>
             <label className="mt-5 flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#3f4d54]"><input type="checkbox" checked={data.consent} onChange={(e) => setData({ ...data, consent: e.target.checked })} className="mt-1 size-4 accent-[#146c5a]" /><span>我同意处理填写的信息，并理解本工具不是移民律师、不保证获签，所有最终声明和提交必须由我亲自核对。</span></label>
+            <button type="button" onClick={() => { setResult(DEMO_RESULT); setStep(6); }} className="mt-5 text-sm font-semibold text-[#155e50] underline decoration-[#155e50]/30 underline-offset-4 hover:decoration-[#155e50]">暂时没有 API Key？先看示例审查结果</button>
           </div></section>}
 
         {step === 1 && <section><Title title="申请人信息" description="姓名和证件信息请与护照完全一致。不确定的内容可留空，Agent 不会猜测。" /><div className="grid gap-5 sm:grid-cols-2">
