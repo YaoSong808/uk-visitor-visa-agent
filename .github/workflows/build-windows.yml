@@ -1,0 +1,60 @@
+name: Build Windows app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build Windows executables
+        run: npm run desktop:build:win
+
+      - name: Package Codex skill
+        shell: pwsh
+        run: Compress-Archive -Path skills/uk-visitor-visa-prep -DestinationPath release/UK-Visitor-Visa-Prep-Skill.zip -Force
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: UK-Visitor-Visa-Agent-Windows
+          path: |
+            release/*.exe
+            release/UK-Visitor-Visa-Prep-Skill.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            release/*.exe
+            release/UK-Visitor-Visa-Prep-Skill.zip
+
