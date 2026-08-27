@@ -1,0 +1,40 @@
+appId: com.yaosong.ukvisitorvisaagent
+productName: UK Visitor Visa Agent
+copyright: Copyright (c) 2026 Yao Song
+asar: true
+
+directories:
+  output: release
+  buildResources: desktop/assets
+
+files:
+  - desktop/main.mjs
+  - desktop/assets/icon.png
+  - package.json
+
+extraResources:
+  - from: dist/desktop-server
+    to: server
+
+win:
+  executableName: UKVisitorVisaAgent
+  icon: icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: UK Visitor Visa Agent
+  artifactName: UK-Visitor-Visa-Agent-Setup-${version}-${arch}.${ext}
+
+portable:
+  artifactName: UK-Visitor-Visa-Agent-Portable-${version}-${arch}.${ext}

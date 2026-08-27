@@ -1,0 +1,10 @@
+interface:
+  display_name: "UK Visitor Visa Prep"
+  short_description: "Audit and prepare UK visitor visa materials"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#0F7657"
+  default_prompt: "Use $uk-visitor-visa-prep to audit this folder and prepare my UK Standard Visitor visa materials."
+
+policy:
+  allow_implicit_invocation: true

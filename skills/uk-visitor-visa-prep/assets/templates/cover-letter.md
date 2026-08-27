@@ -1,0 +1,31 @@
+# Cover Letter
+
+[DATE]
+
+To: Entry Clearance Officer
+
+Subject: Standard Visitor visa application of [APPLICANT FULL NAME]
+
+Dear Entry Clearance Officer,
+
+## Purpose and dates
+
+[STATE THE TEMPORARY VISIT PURPOSE, ARRIVAL, DEPARTURE, AND MAIN CITIES.]
+
+## Funding and personal finances
+
+[STATE THE DECLARED TOTAL COST, WHO PAYS EACH PART, REGULAR INCOME OR SUPPORT, NORMAL COMMITMENTS, AND ANY MATERIAL TRANSACTIONS THAT REQUIRE EXPLANATION.]
+
+## Personal circumstances and return
+
+[STATE CURRENT STUDY, EMPLOYMENT, LEGAL RESIDENCE, FAMILY, OR OTHER DOCUMENTED CIRCUMSTANCES WITHOUT OVERSTATING THEIR EFFECT.]
+
+## Supporting documents
+
+[LIST ONLY THE DOCUMENTS ACTUALLY INCLUDED.]
+
+Thank you for considering my application.
+
+Yours faithfully,
+
+[APPLICANT FULL NAME]
